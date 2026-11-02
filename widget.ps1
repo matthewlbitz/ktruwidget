@@ -9,7 +9,7 @@ if (!$node) { [System.Windows.MessageBox]::Show('Node was not found. Start with 
 & $node --no-warnings -e "require('node:sqlite')" 2>$null
 if ($LASTEXITCODE -ne 0) { [System.Windows.MessageBox]::Show('Node 22.13 or newer is required. Check the Node path in Launch.cmd.'); exit 1 }
 [xml]$xaml = @'
-<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Title="KTRU / shelf lookup" Width="300" Height="145" WindowStyle="None" ResizeMode="NoResize" Topmost="True" Background="#080808" Foreground="#FFBF00" FontFamily="Courier New" WindowStartupLocation="CenterScreen">
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Title="KTRU / shelf lookup" Width="290" Height="160" WindowStyle="None" ResizeMode="NoResize" Topmost="True" Background="#080808" Foreground="#FFBF00" FontFamily="Courier New" WindowStartupLocation="CenterScreen">
  <Border BorderBrush="#FFBF00" BorderThickness="1" Padding="10">
   <Grid>
    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
@@ -17,8 +17,8 @@ if ($LASTEXITCODE -ne 0) { [System.Windows.MessageBox]::Show('Node 22.13 or newe
     <TextBlock Text="+- KTRU / SHELF LOOKUP -+" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     <Button Name="Close" Content="x" HorizontalAlignment="Right" Width="20" Height="20" Background="#080808" Foreground="#FFBF00" BorderThickness="0" FontFamily="Courier New" FontSize="14" ToolTip="Close" AutomationProperties.Name="Close widget"/>
    </Grid>
-   <StackPanel Name="IdlePanel" Grid.Row="1" VerticalAlignment="Center">
-    <TextBlock Text="forgot where an album goes?" Foreground="#C39B35" FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,9"/>
+   <StackPanel Name="IdlePanel" Grid.Row="1" VerticalAlignment="Center" Margin="0,-10,0,0">
+    <TextBlock Text="forgot where an album goes?" Foreground="#FFBF00" FontSize="16" HorizontalAlignment="Center" Margin="0,-8,0,20"/>
     <Button Name="Locate" Content="[ click to locate ]" FontFamily="Courier New" FontSize="16" Cursor="Hand" Padding="10,5" HorizontalAlignment="Center" AutomationProperties.Name="Click to locate an album">
      <Button.Template>
       <ControlTemplate TargetType="Button">

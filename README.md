@@ -46,13 +46,13 @@ Launch.cmd
 
 Canonical allocator and capacities are preserved from [final-sorter](https://github.com/matthewlbitz/final-sorter), commit `94ac916fbf7ec25f040d9a8f803c3630f4a6b8c1`. Stored final_shelf is authoritative. The lookup backend retains canonical position calculations, but the widget intentionally displays only final_shelf until physical positions are accurate. Physical placement is not verified. Unknown and duplicate barcodes, missing assignments, and unresolved sorting metadata are handled explicitly. Type manually when a scanner cannot read a label; artist/title search is not included.
 
-Lookup tests passed on macOS / Node 22.23.3, including read-only enforcement and WAL visibility; 464 reference-catalog shelf position samples passed with the database hash unchanged. Native Windows interaction and scanner hardware have not been tested here. Window size is 300 × 145 at 100% scaling.
+Lookup tests passed on macOS / Node 22.23.3, including read-only enforcement and WAL visibility; 464 reference-catalog shelf position samples passed with the database hash unchanged. Native Windows interaction and scanner hardware have not been tested here. Window size is 290 × 160 at 100% scaling.
 
 The earlier ZIP remains available for historical reference. It contains a different launcher with portable-runtime setup; the source installation above does not use it. No antivirus verdict or false-positive determination has been established for that earlier ZIP.
 
 ## Compact widget update — November 2, 2026
 
-- Window reduced by about one-sixth to 300 × 145.
+- Window reduced by about one-sixth to 290 × 160.
 - Results show only `Shelf [ 12C ]`; no position suffix.
 - Gray `scan barcode...` hint appears whenever the textbox is empty, even when focused. It is an overlay, never barcode input.
 - After every nonempty submitted scan (including unknown codes and lookup errors), the result resets to `Shelf: [ ]` after 30 seconds. Each subsequent scan restarts that countdown. Timer is stopped on close. Blank Enter presses do not count as scans; partially typed text is preserved during reset.
@@ -70,8 +70,12 @@ Validation for this update: XAML XML structure and timer placement checked local
 
 ## Click-to-locate update
 
-The default screen asks `forgot where an album goes?` with a `[ click to locate ]` button. Click it before scanning: this reveals and focuses the scan box. A 30-second countdown starts on click, restarts after each nonempty submitted scan, and returns to the click screen on expiry. Switching to another application returns to idle immediately. Reset clears partially typed barcode text and the previous result. Pressing Enter from a scanner while idle does not activate the button. Results remain shelf-only; the window stays 300 × 145 with the same colors and font. The textbox and shelf result have slightly more top spacing.
+The default screen asks `forgot where an album goes?` with a `[ click to locate ]` button. Click it before scanning: this reveals and focuses the scan box. A 30-second countdown starts on click, restarts after each nonempty submitted scan, and returns to the click screen on expiry. Switching to another application returns to idle immediately. Reset clears partially typed barcode text and the previous result. Pressing Enter from a scanner while idle does not activate the button. Results remain shelf-only; the window stays 290 × 160 with the same colors and font. The textbox and shelf result have slightly more top spacing.
 
 This is a focus cue, not scanner interception: scanning while a metadata app is focused still sends keystrokes to that app. Always click the locator before scanning.
 
 Use the same widget.ps1-only update commands above and your existing Launch.vbs shortcut. The source update leaves the catalog untouched. Structural XML and handler wiring were checked here. `powershell.exe -NoProfile -STA -File .\widget.ps1 -SmokeTest` exercises idle/scan/reset state transitions on Windows. Windows runtime/focus behavior has not been executed on this Mac. Manually confirm idle → click → scan → timeout, switching apps → idle, and a new click restores scanner focus.
+
+## Approved booth layout
+
+Window: 290 × 160. The idle question uses regular-weight 16px Courier New in marigold and sits higher above the locate button. Click-to-scan behavior, focus-loss reset, 30-second timeout, and shelf-only results are retained. The Mac browser preview was visually reviewed; final Windows font rendering and scanner hardware still need checking at the booth. Publishing does not update an already-running booth copy. Close and update it later using the widget.ps1-only commands above, then reopen Launch.vbs. A typed barcode plus Enter can test the lookup before the physical scanner is connected.
