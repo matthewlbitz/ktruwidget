@@ -67,3 +67,11 @@ Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/matthewlbi
 Reopen with the existing Launch.vbs shortcut. Only widget.ps1 is replaced; the data folder, database and silent launcher are retained. Keep the backup if you customized the old script. The older ZIP is not the current source update.
 
 Validation for this update: XAML XML structure and timer placement checked locally. Windows WPF timer and layout require a booth-side check: scan, wait 30 seconds, confirm default; scan twice 20 seconds apart and confirm reset occurs 30 seconds after the latest scan. Confirm typing hides the hint and deleting text restores it.
+
+## Click-to-locate update
+
+The default screen asks `forgot where an album goes?` with a `[ click to locate ]` button. Click it before scanning: this reveals and focuses the scan box. A 30-second countdown starts on click, restarts after each nonempty submitted scan, and returns to the click screen on expiry. Switching to another application returns to idle immediately. Reset clears partially typed barcode text and the previous result. Pressing Enter from a scanner while idle does not activate the button. Results remain shelf-only; the window stays 300 × 145 with the same colors and font. The textbox and shelf result have slightly more top spacing.
+
+This is a focus cue, not scanner interception: scanning while a metadata app is focused still sends keystrokes to that app. Always click the locator before scanning.
+
+Use the same widget.ps1-only update commands above and your existing Launch.vbs shortcut. The source update leaves the catalog untouched. Structural XML and handler wiring were checked here. `powershell.exe -NoProfile -STA -File .\widget.ps1 -SmokeTest` exercises idle/scan/reset state transitions on Windows. Windows runtime/focus behavior has not been executed on this Mac. Manually confirm idle → click → scan → timeout, switching apps → idle, and a new click restores scanner focus.
